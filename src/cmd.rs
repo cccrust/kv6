@@ -833,7 +833,7 @@ pub fn handle_command(store: Arc<Store>, input: RespValue) -> RespValue {
         // Server
         "INFO" => {
             let info = format!(
-                "# Server\r\nkv5_version:0.1.0\r\nmode:standalone\r\nos:Linux\r\n\
+                "# Server\r\nkv6_version:0.1.0\r\nmode:standalone\r\nos:Linux\r\n\
                  # Stats\r\nconnected_clients:1\r\nused_memory:unknown\r\n\
                  # Keyspace\r\ndb0:keys={},expires=0\r\n",
                 store.dbsize()
@@ -1407,7 +1407,7 @@ mod tests {
         let result = handle_command(store, cmd);
         match result {
             RespValue::BulkString(Some(s)) => {
-                assert!(s.contains("kv5_version"));
+                assert!(s.contains("kv6_version"));
             }
             _ => panic!("Expected BulkString result"),
         }

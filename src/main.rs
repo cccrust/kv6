@@ -1,22 +1,22 @@
-use kv5::db::DbDropGuard;
-use kv5::server::Listener;
-use kv5::store::Store;
+use kv6::db::DbDropGuard;
+use kv6::server::Listener;
+use kv6::store::Store;
 
 use anyhow::Result;
 use std::sync::Arc;
 use tokio::sync::broadcast;
 
 const DEFAULT_ADDR: &str = "127.0.0.1:6380";
-const DEFAULT_PERSIST: &str = "kv5.dump.json";
+const DEFAULT_PERSIST: &str = "kv6.dump.json";
 
 #[tokio::main]
 async fn main() -> Result<()> {
     tracing_subscriber::fmt()
-        .with_env_filter(std::env::var("RUST_LOG").unwrap_or_else(|_| "kv5=info".to_string()))
+        .with_env_filter(std::env::var("RUST_LOG").unwrap_or_else(|_| "kv6=info".to_string()))
         .init();
 
-    let addr = std::env::var("KV5_ADDR").unwrap_or_else(|_| DEFAULT_ADDR.to_string());
-    let persist = std::env::var("KV5_PERSIST")
+    let addr = std::env::var("KV6_ADDR").unwrap_or_else(|_| DEFAULT_ADDR.to_string());
+    let persist = std::env::var("KV6_PERSIST")
         .ok()
         .or_else(|| Some(DEFAULT_PERSIST.to_string()));
 

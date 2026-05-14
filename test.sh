@@ -2,7 +2,7 @@
 
 set -e
 
-echo "=== kv5 測試腳本 ==="
+echo "=== kv6 測試腳本 ==="
 
 echo "執行 cargo fmt..."
 cargo fmt --check

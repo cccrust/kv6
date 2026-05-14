@@ -1,6 +1,6 @@
-# kv5
+# kv6
 
-A Redis-like KV database written in Rust.
+A Redis-like KV database with LSM-Tree persistent storage written in Rust.
 
 ## Build & Test
 
@@ -20,18 +20,18 @@ cargo test <test_name>
 
 Run the server:
 ```bash
-cargo run --bin kv5-server
+cargo run --bin kv6-server
 ```
 
 Run the CLI:
 ```bash
-cargo run --bin kv5-cli
+cargo run --bin kv6-cli
 ```
 
 ## Binaries
 
-- `kv5-server` - Entry point: `src/main.rs`
-- `kv5-cli` - Entry point: `src/cli.rs`
+- `kv6-server` - Entry point: `src/main.rs`
+- `kv6-cli` - Entry point: `src/cli.rs`
 
 ## Verification Order
 
@@ -46,4 +46,20 @@ This project uses clippy with `-D warnings` (treats warnings as errors).
 - `src/db.rs` - Core key-value store
 - `src/pubsub.rs` - Pub/sub functionality
 - `src/resp.rs` - RESP protocol encoding/decoding
-- `src/store/` - Storage implementations
+- `src/store/` - Storage implementations (LSM-Tree)
+- `src/lsm/` - LSM-Tree core implementation (v6.1+)
+
+## LSM-Tree Architecture (v6.1+)
+
+```
+Write Path:
+  PUT -> MemTable (SkipList) -> Flush -> SSTable (L0) -> Compaction -> SSTable (L1+)
+
+Read Path:
+  MemTable -> Bloom Filter -> SSTable (L0) -> SSTable (L1) -> ...
+```
+
+- `src/lsm/memtable.rs` - In-memory SkipList
+- `src/lsm/sstable.rs` - SSTable file format
+- `src/lsm/compaction.rs` - Background compaction
+- `src/lsm/builder.rs` - SSTable builder

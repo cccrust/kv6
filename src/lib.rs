@@ -2,6 +2,7 @@ pub mod client;
 pub mod cmd;
 pub mod connection;
 pub mod db;
+pub mod lsm;
 pub mod pubsub;
 pub mod resp;
 pub mod server;

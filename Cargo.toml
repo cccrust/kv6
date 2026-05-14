@@ -1,15 +1,15 @@
 [package]
-name = "kv5"
+name = "kv6"
 version = "0.1.0"
 edition = "2021"
-description = "A Redis-like KV database written in Rust (kv5 - enhanced version)"
+description = "A Redis-like KV database written in Rust (kv6 - enhanced version)"
 
 [[bin]]
-name = "kv5-server"
+name = "kv6-server"
 path = "src/main.rs"
 
 [[bin]]
-name = "kv5-cli"
+name = "kv6-cli"
 path = "src/cli.rs"
 
 [dependencies]
@@ -22,3 +22,5 @@ anyhow = "1"
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 bytes = "1"
+parking_lot = "0.12"
+rand = "0.8"
